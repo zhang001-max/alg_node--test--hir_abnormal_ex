@@ -3,6 +3,7 @@ import shutil
 from pathlib import Path
 import cv2
 import torch
+import time
 import numpy as np
 from tqdm import tqdm
 
@@ -22,7 +23,8 @@ def download_video(video_url, save_path):
     # copy the downloaded video to the save_path
 
     shutil.copy(video_url, save_path)
-    return video_path
+    cur_time = time.strftime("%Y_%m_%d_%H_%M_%S", time.localtime())
+    return video_path, cur_time
 
 
 def get_frame_count(video_path):
@@ -37,12 +39,12 @@ def get_frame_count(video_path):
 
 class MyAlg(Alg):
     def rename_batch(self, video_path, save_folder):
-        video_path = download_video(video_path, 'video.mp4')
+        video_path, cur_time = download_video(video_path, 'video.mp4')
         frame_count = get_frame_count(video_path)
         video_path = Path(video_path)
         new_filepath = None
         if frame_count != -1:
-            new_filename = f"{video_path.stem}_{frame_count}.{video_path.suffix}"
+            new_filename = f"{video_path.stem}_{cur_time}.{video_path.suffix}"
             new_filepath = os.path.join(save_folder, new_filename)
             shutil.copy(video_path, new_filepath)
             print(f"Copy '{video_path}' to '{new_filepath}'")

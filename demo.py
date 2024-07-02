@@ -24,13 +24,13 @@ def main():
             # only effective in stream mode
             'task_id': 'task_id123',
             # only effective in stream mode
-            'sources': ['rtsp://localhost:9111/123',
+            'sources': ['rtsp://localhost:9111/123',  #数据源
                         'mqx://localhost:8011//1123'],
             'model': 'model_12.pth', # could be file path or url or model name
         },
         'out': {
-            'dest': 'mqtt://localhost:2799',
-            'mode': 'mq',
+            'dest': 'mqtt://localhost:2799', #输出目的地
+            'mode': 'mq',#节点
             'username': 'ucs-dev',
             'passwd': 'M*12@va33',
             'topic': 'alg'
